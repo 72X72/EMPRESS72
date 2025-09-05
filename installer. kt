@@ -1,0 +1,9 @@
+package com.fullsteam.empress
+
+import android.content.Context
+
+class Installer(private val context: Context) {
+    fun install() {
+        Empress(context).override()
+    }
+}

@@ -1,0 +1,33 @@
+name: EMPRESS Mutation Protocol
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+
+jobs:
+  mutate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout EMPRESS
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run EMPRESS Mutation Loop
+        env:
+          SHOPIFY_ACCESS_TOKEN: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
+          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+          DSERS_API_KEY: ${{ secrets.DSERS_API_KEY }}
+        run: |
+          python empress_run.py
