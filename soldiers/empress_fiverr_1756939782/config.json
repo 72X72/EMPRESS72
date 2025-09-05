@@ -1,0 +1,9 @@
+{
+    "daily_target": 1000,
+    "platform_hooks": [
+        "post",
+        "track",
+        "remix"
+    ],
+    "narration": true
+}
